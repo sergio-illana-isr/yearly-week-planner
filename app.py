@@ -311,7 +311,7 @@ timeline = (
         tickformat="%V",
         dtick=7 * 24 * 60 * 60 * 1000,
         ticklabelmode="period",
-        rangebreaks=[dict(bounds=["sat", "mon"])],
+        # rangebreaks=[dict(bounds=["sat", "mon"])],
         tickfont_color="white",
     )
     .update_yaxes(showticklabels=False, visible=False)
@@ -425,7 +425,7 @@ fig.append_trace(
 fig.update_xaxes(
     dtick=7 * 24 * 60 * 60 * 1000,
     ticklabelmode="period",
-    rangebreaks=[dict(bounds=["sat", "mon"])],
+    # rangebreaks=[dict(bounds=["sat", "mon"])],
     showticklabels=True,
     showgrid=True,
     tickangle=0,
