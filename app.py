@@ -310,6 +310,7 @@ timeline = (
     .update_xaxes(
         tickformat="%V",
         dtick=7 * 24 * 60 * 60 * 1000,
+        tick0=dt.datetime(2024, 1, 1, 0, 0, 0),
         ticklabelmode="period",
         # rangebreaks=[dict(bounds=["sat", "mon"])],
         tickfont_color="white",
@@ -424,6 +425,7 @@ fig.append_trace(
 )
 fig.update_xaxes(
     dtick=7 * 24 * 60 * 60 * 1000,
+    tick0=dt.datetime(2024, 1, 1, 0, 0, 0),
     ticklabelmode="period",
     # rangebreaks=[dict(bounds=["sat", "mon"])],
     showticklabels=True,
