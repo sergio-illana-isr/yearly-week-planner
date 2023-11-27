@@ -471,7 +471,7 @@ fig.update_layout(
     yaxis3_minor_showgrid=True,
     xaxis2_tickformat="%V",
     xaxis2_tickfont_color="white",
-    height=1000,
+    height=900,
 ).update_yaxes(
     title_standoff=20,
     showspikes=True,
