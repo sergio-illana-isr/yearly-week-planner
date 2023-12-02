@@ -7,7 +7,6 @@ import requests
 import streamlit as st
 from plotly.subplots import make_subplots
 
-API_TOKEN = "pk_4766013_B2OOP9MBMY9AOWTTZ9MDIJ9XADGEVNS6"
 PROJECTS_LIST_ID = "901500802874"
 PHASES_LIST_ID = "901500901825"
 CONTRACTS_LIST_ID = "901501061808"
@@ -40,7 +39,7 @@ projects = pd.DataFrame(
             "GET",
             f"https://api.clickup.com/api/v2/list/{PROJECTS_LIST_ID}/task",
             headers={
-                "Authorization": API_TOKEN,
+                "Authorization": st.secrets["API_TOKEN"],
             },
         ).json()["tasks"]
     ]
@@ -98,7 +97,7 @@ phases = (
                 "GET",
                 f"https://api.clickup.com/api/v2/list/{PHASES_LIST_ID}/task",
                 headers={
-                    "Authorization": API_TOKEN,
+                    "Authorization": st.secrets["API_TOKEN"],
                 },
             ).json()["tasks"]
         ]
@@ -222,7 +221,7 @@ contracts = pd.DataFrame(
             "GET",
             f"https://api.clickup.com/api/v2/list/{CONTRACTS_LIST_ID}/task",
             headers={
-                "Authorization": API_TOKEN,
+                "Authorization": st.secrets["API_TOKEN"],
             },
         ).json()["tasks"]
     ]
