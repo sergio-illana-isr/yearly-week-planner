@@ -63,11 +63,11 @@ phases = (
                 "time_estimate": p["time_estimate"] / 3600000
                 if p["time_estimate"] is not None
                 else None,
-                "duration": next(
-                    float(cf["value"]) if "value" in cf else None
-                    for cf in p["custom_fields"]
-                    if cf["name"] == "Duration"
-                ),
+                # "duration": next(
+                #     float(cf["value"]) if "value" in cf else None
+                #     for cf in p["custom_fields"]
+                #     if cf["name"] == "Duration"
+                # ),
                 "start_date": dt.datetime.combine(
                     dt.datetime.fromtimestamp(
                         int(p["start_date"]) / 1000, dt.timezone.utc
