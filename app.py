@@ -108,7 +108,7 @@ phases = (
             "name": "string",
             "status": "category",
             "time_estimate": "timedelta64[h]",
-            "duration": "timedelta64[W]",
+            # "duration": "timedelta64[W]",
             "start_date": "datetime64[ns, UTC]",
             "due_date": "datetime64[ns, UTC]",
             "project_id": "string",
