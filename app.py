@@ -18,22 +18,26 @@ projects = pd.DataFrame(
             "name": p["name"],
             "status": p["status"]["status"],
             "type": next(
-                cf["type_config"]["options"][cf["value"]]["name"]
-                if "value" in cf
-                else None
+                (
+                    cf["type_config"]["options"][cf["value"]]["name"]
+                    if "value" in cf
+                    else None
+                )
                 for cf in p["custom_fields"]
                 if cf["name"] == "Type"
             ),
             "field": next(
-                cf["type_config"]["options"][cf["value"]]["name"]
-                if "value" in cf
-                else None
+                (
+                    cf["type_config"]["options"][cf["value"]]["name"]
+                    if "value" in cf
+                    else None
+                )
                 for cf in p["custom_fields"]
                 if cf["name"] == "Field"
             ),
-            "priority": p["priority"]["priority"]
-            if p["priority"] is not None
-            else None,
+            "priority": (
+                p["priority"]["priority"] if p["priority"] is not None else None
+            ),
         }
         for p in requests.request(
             "GET",
@@ -60,37 +64,43 @@ phases = (
                 "id": p["id"],
                 "name": p["name"],
                 "status": p["status"]["status"],
-                "time_estimate": p["time_estimate"] / 3600000
-                if p["time_estimate"] is not None
-                else None,
+                "time_estimate": (
+                    p["time_estimate"] / 3600000
+                    if p["time_estimate"] is not None
+                    else None
+                ),
                 # "duration": next(
                 #     float(cf["value"]) if "value" in cf else None
                 #     for cf in p["custom_fields"]
                 #     if cf["name"] == "Duration"
                 # ),
-                "start_date": dt.datetime.combine(
-                    dt.datetime.fromtimestamp(
-                        int(p["start_date"]) / 1000, dt.timezone.utc
-                    ),
-                    dt.time.min,
-                    tzinfo=dt.timezone.utc,
-                )
-                if p["start_date"] is not None
-                else None,
-                "due_date": dt.datetime.combine(
-                    dt.datetime.fromtimestamp(
-                        int(p["due_date"]) / 1000, dt.timezone.utc
+                "start_date": (
+                    dt.datetime.combine(
+                        dt.datetime.fromtimestamp(
+                            int(p["start_date"]) / 1000, dt.timezone.utc
+                        ),
+                        dt.time.min,
+                        tzinfo=dt.timezone.utc,
                     )
-                    + dt.timedelta(days=1),
-                    dt.time.min,
-                    tzinfo=dt.timezone.utc,
-                )
-                if p["due_date"] is not None
-                else None,
+                    if p["start_date"] is not None
+                    else None
+                ),
+                "due_date": (
+                    dt.datetime.combine(
+                        dt.datetime.fromtimestamp(
+                            int(p["due_date"]) / 1000, dt.timezone.utc
+                        )
+                        + dt.timedelta(days=1),
+                        dt.time.min,
+                        tzinfo=dt.timezone.utc,
+                    )
+                    if p["due_date"] is not None
+                    else None
+                ),
                 "project_id": next(
                     cf["value"][0]["id"] if "value" in cf else None
                     for cf in p["custom_fields"]
-                    if cf["name"] == "Project"
+                    if cf["name"] == "Project" and cf["type"] == "list_relationship"
                 ),
             }
             for p in requests.request(
@@ -189,30 +199,40 @@ contracts = pd.DataFrame(
             "id": p["id"],
             "name": p["name"],
             "status": p["status"]["status"],
-            "start_date": dt.datetime.combine(
-                dt.datetime.fromtimestamp(int(p["start_date"]) / 1000, dt.timezone.utc),
-                dt.time.min,
-                tzinfo=dt.timezone.utc,
-            )
-            if p["start_date"] is not None
-            else None,
-            "due_date": dt.datetime.combine(
-                dt.datetime.fromtimestamp(int(p["due_date"]) / 1000, dt.timezone.utc)
-                + dt.timedelta(days=1),
-                dt.time.min,
-                tzinfo=dt.timezone.utc,
-            )
-            if p["due_date"] is not None
-            else None,
+            "start_date": (
+                dt.datetime.combine(
+                    dt.datetime.fromtimestamp(
+                        int(p["start_date"]) / 1000, dt.timezone.utc
+                    ),
+                    dt.time.min,
+                    tzinfo=dt.timezone.utc,
+                )
+                if p["start_date"] is not None
+                else None
+            ),
+            "due_date": (
+                dt.datetime.combine(
+                    dt.datetime.fromtimestamp(
+                        int(p["due_date"]) / 1000, dt.timezone.utc
+                    )
+                    + dt.timedelta(days=1),
+                    dt.time.min,
+                    tzinfo=dt.timezone.utc,
+                )
+                if p["due_date"] is not None
+                else None
+            ),
             "weekly_work_capacity": next(
                 float(cf["value"]) if "value" in cf else None
                 for cf in p["custom_fields"]
                 if cf["name"] == "Weekly work capacity"
             ),
             "field": next(
-                cf["type_config"]["options"][cf["value"]]["name"]
-                if "value" in cf
-                else None
+                (
+                    cf["type_config"]["options"][cf["value"]]["name"]
+                    if "value" in cf
+                    else None
+                )
                 for cf in p["custom_fields"]
                 if cf["name"] == "Field"
             ),
